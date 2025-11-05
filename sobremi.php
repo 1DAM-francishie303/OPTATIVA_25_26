@@ -8,11 +8,11 @@
 </head>
 <body class="h-full w-full">
     <?php
-    echo "<h1 class='text-6xl flex justify-center'>SOBRE MÍ</h1>";
+    echo "<h1 class='text-6xl flex justify-center mt-10'>SOBRE MÍ</h1>";
     $hobbies = array(
-    array("https://imagenes.elpais.com/resizer/v2/SHLDQW7SLBPYDHIX3YM6OGQ2CQ.jpg?auth=8da182101235684b9475d9be2308f3e046c1a3a374c0bc5aec9c717358708264&width=414","ver Youtube","Paso mucho tiempo viendo vídeos de Youtube. Sé que debería dejarlo pero no puedo")
-    ,array("https://www.misclientesparasiempre.es/wp-content/uploads/2018/01/012018-JavaLenguajeProgramacion.jpg","programar","Me encanta programar y es a lo que me quiero dedicar en el futuro. Sobre todo me gusta Java.")
-    ,array("https://st3.depositphotos.com/1000260/16937/i/450/depositphotos_169372520-stock-photo-diet-fat-man-makes-choice.jpg","comer","Me gusta comer mucho. Solo comida de calidad y muy buena como la carne de vaca")
+    array("https://imagenes.elpais.com/resizer/v2/SHLDQW7SLBPYDHIX3YM6OGQ2CQ.jpg?auth=8da182101235684b9475d9be2308f3e046c1a3a374c0bc5aec9c717358708264&width=414","ver Youtube","Paso mucho tiempo viendo vídeos de Youtube. Sé que debería dejarlo pero no puedo", "5 veces/semana")
+    ,array("https://www.misclientesparasiempre.es/wp-content/uploads/2018/01/012018-JavaLenguajeProgramacion.jpg","programar","Me encanta programar y es a lo que me quiero dedicar en el futuro. Sobre todo me gusta Java.", "4 veces/semana")
+    ,array("https://st3.depositphotos.com/1000260/16937/i/450/depositphotos_169372520-stock-photo-diet-fat-man-makes-choice.jpg","comer","Me gusta comer mucho. Solo comida de calidad y muy buena como la carne de vaca", "7 veces/semana")
     );
     echo "<div class='flex flex-row mt-20'>";
     foreach($hobbies as $key => $hobbie) {
@@ -20,6 +20,7 @@
         echo "<img src=$hobbie[0] class='rounded-t-2xl w-full'/>";
         echo "<h2 class='font-bold'>$hobbie[1]</h2>";
         echo "<p>$hobbie[2]</p>";
+        echo "<button class='bg-green-600 rounded-md p-1 text-white'>$hobbie[3]</button>";
         echo "</div>";
     }
     echo "</div>";
