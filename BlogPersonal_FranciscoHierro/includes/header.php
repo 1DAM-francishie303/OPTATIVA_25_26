@@ -7,18 +7,16 @@
     <title>Header</title>
 </head>
 <body>
-     <?php 
-        //HAY QUE HACERLO DE FORMA DINAMICA CON UN ARRAY 
-        //BASICAMENTE COMO SOBRE MI
-
-    ?>
-    <div class="w-screen h-30 bg-blue-400 text-white text-5xl p-3 pt-5">Blog de Francisco Hierro</div>
+    <div class="w-screen h-30 bg-blue-400 text-white text-5xl p-3 pt-5"><h1 class="ml-6">Blog de Francisco Hierro</h1></div>
     <nav class="w-screen h-10 bg-blue-300">
-        <button class="cursor-pointer hover:text-white m-2 mx-5"><a href="../BlogPersonal_FranciscoHierro/inicio.php">INICIO</a>
-        </button>
-        <button class="cursor-pointer hover:text-white m-2 mx-5"><a href="../BlogPersonal_FranciscoHierro/sobremi.php">SOBRE MÍ</a></button>
-        <button class="cursor-pointer hover:text-white m-2 mx-5"><a href="../BlogPersonal_FranciscoHierro/proyectos.php">PROYECTOS</a></button>
-        <button class="cursor-pointer hover:text-white m-2 mx-5"><a href="../BlogPersonal_FranciscoHierro/contacto.php">CONTACTO</a></button>
+        <?php 
+            $navMenu = array(array("INICIO", "../BlogPersonal_FranciscoHierro/inicio.php"), array("SOBRE MÍ","../BlogPersonal_FranciscoHierro/sobremi.php"), array("PROYECTOS","../BlogPersonal_FranciscoHierro/proyectos.php"), array("CONTACTO","../BlogPersonal_FranciscoHierro/contacto.php"), array("PÁGINA DE BIENVENIDA/TUS DATOS", "../BlogPersonal_FranciscoHierro/index.php"));            
+            foreach($navMenu as $nav){
+                if($nav[0] == "PÁGINA DE BIENVENIDA/TUS DATOS"){
+                    echo "<button class='cursor-pointer hover:text-white m-2 ml-250'><a href=$nav[1]>$nav[0]</a></button>";
+                }else echo "<button class='cursor-pointer hover:text-white m-2 mx-10'><a href=$nav[1]>$nav[0]</a></button>";
+            }
+        ?>
     </nav>
 </body>
 </html>

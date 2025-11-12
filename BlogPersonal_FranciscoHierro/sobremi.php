@@ -6,7 +6,7 @@
     <title>Sobre mi Francisco Hierro</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body class="h-full w-full">
+<body class="h-full w-full bg-gray-200">
     <?php require 'includes/header.php';
     echo "<h1 class='text-6xl flex justify-center mt-10'>SOBRE MÍ</h1>";
     $hobbies = array(
@@ -18,9 +18,9 @@
     foreach($hobbies as $key => $hobbie) {
         echo "<div class='border-2 border-solid border-gray-200 rounded-2xl shadow-2xl mr-10'>";
         echo "<img src=$hobbie[0] class='mb-5 rounded-t-2xl w-full'/>";
-        echo "<h2 class='mb-4 font-bold'>$hobbie[1]</h2>";
-        echo "<p class='mb-5'>$hobbie[2]</p>";
-        echo "<button class='mb-4 bg-green-600 rounded-md p-1 text-white'>$hobbie[3]</button>";
+        echo "<h2 class='mb-4 font-bold ml-5'>$hobbie[1]</h2>";
+        echo "<p class='mb-5 ml-5'>$hobbie[2]</p>";
+        echo "<button class='mb-4 ml-5 bg-green-600 rounded-md p-1 text-white'>$hobbie[3]</button>";
         echo "</div>";
     }
     echo "</div>";
