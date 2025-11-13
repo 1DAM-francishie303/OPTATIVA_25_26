@@ -13,7 +13,7 @@
             $navMenu = array(array("INICIO", "../BlogPersonal_FranciscoHierro/inicio.php"), array("SOBRE MÍ","../BlogPersonal_FranciscoHierro/sobremi.php"), array("PROYECTOS","../BlogPersonal_FranciscoHierro/proyectos.php"), array("CONTACTO","../BlogPersonal_FranciscoHierro/contacto.php"), array("PÁGINA DE BIENVENIDA/TUS DATOS", "../BlogPersonal_FranciscoHierro/index.php"));            
             foreach($navMenu as $nav){
                 if($nav[0] == "PÁGINA DE BIENVENIDA/TUS DATOS"){
-                    echo "<button class='cursor-pointer hover:text-white m-2 ml-250'><a href=$nav[1]>$nav[0]</a></button>";
+                    echo "<button class='cursor-pointer hover:text-white m-2 ml-[550px]'><a href=$nav[1]>$nav[0]</a></button>";
                 }else echo "<button class='cursor-pointer hover:text-white m-2 mx-10'><a href=$nav[1]>$nav[0]</a></button>";
             }
         ?>

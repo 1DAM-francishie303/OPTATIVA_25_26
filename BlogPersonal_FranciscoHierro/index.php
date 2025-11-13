@@ -26,7 +26,7 @@
             <input type="submit" value="Enviar" class="mt-10 text-white text-lg cursor-pointer bg-green-400 px-3 py-1 rounded-lg">
         </form>
     
-        <div class="border-2 border-blue-400 rounded-lg shadow-2xl ml-50 h-50 w-100 bg-gray-300 mt-10">
+        <div class="border-4 border-blue-400 p-2 rounded-lg shadow-2xl ml-50 h-40 w-100 bg-gray-300 mt-10">
             <?php
                 foreach($_POST as $key => $datos){
                     if($key == "Imagen"){
