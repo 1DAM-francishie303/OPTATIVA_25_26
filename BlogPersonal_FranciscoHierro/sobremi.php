@@ -20,7 +20,7 @@
         echo "<img src=$hobbie[0] class='mb-5 rounded-t-2xl w-full'/>";
         echo "<h2 class='mb-4 font-bold ml-5'>$hobbie[1]</h2>";
         echo "<p class='mb-5 ml-5'>$hobbie[2]</p>";
-        echo "<button class='mb-4 ml-5 bg-green-600 rounded-md p-1 text-white'>$hobbie[3]</button>";
+        echo "<button class='cursor-pointer mb-4 ml-5 bg-green-600 rounded-md p-1 text-white'>$hobbie[3]</button>";
         echo "</div>";
     }
     echo "</div>";

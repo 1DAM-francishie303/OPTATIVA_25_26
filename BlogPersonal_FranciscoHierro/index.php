@@ -11,7 +11,7 @@
         //Voy a hacerlo todo dinamico
         $formulario = array(array("input","Nombre","Escribe tu nombre","text"), array("input","Apellidos", "Escribe tus apellidos","text"), array("textarea","Descripción", "Escribe una breve descripción...","text"),array("input","Contacto", "Tu contacto","number"), array("input","Imagen","Copia el enlace a tu imagen","text"))
         
-        //Lo he hecho así con formulario y carga de datos para hacerlo más interesante
+        //LO HE HECHO ASÍ CON FORMULARIO Y CARGA DE DATOS PARA HACERLO MÁS COMPLETO
      ?>
     <div class="flex justify-center text-6xl bg-gray-200"><h2 class="mt-5">TUS DATOS</h2></div>
 

@@ -1,0 +1,9 @@
+muestra la fecha actual en castellano
+tabla de 10 por 10 con números del 1 al 100
+formulario mayor de edad o no
+respuesta al formulario anterior (no hace falta abrirlo)
+formulario cálculo salario con retención
+formulario para saber si número es positivo, cero o negativo
+respuesta al formulario anterior (no hace falta abrirlo)
+saber si numero aleatorio es insuficiente, suficiente, bien...
+escribe frase cambiando el tamaño según la etiqueta <h>
