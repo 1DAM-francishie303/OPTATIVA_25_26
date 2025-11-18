@@ -7,24 +7,27 @@
   </head>
   <body class="w-full h-full bg-gray-200">
     <?php
-         session_start();
+        session_start();
         if(isset($_POST['nombre'])){
             $_SESSION['nombre'] = $_POST['nombre'];
+            $nombre = $_SESSION['nombre'];
         }
         if(isset($_POST['apellido'])){
             $_SESSION['apellido'] = $_POST['apellido'];
-        }
-        if (isset($_POST['limpiar'])) {
-            session_unset();
-        }
-
+            $apellido = $_SESSION['apellido'];
+          }
+         if(isset($_POST["limpiar"])){
+            session_unset(); //Borramos todos los datos de la sesión si limpia
+            $nombre = "";
+            $apellido = "";
+         }
     ?>
-    <form class="border-2 h-170 border-gray-300 shadow-2xl w-100 m-10 rounded-2xl bg-gray-100" method="POST" action="procesar.php">
+    <form class="border-2 h-170 border-gray-300 shadow-2xl w-100 m-10 rounded-2xl bg-gray-100" method="POST">
       <div class="flex flex-col ml-10 mt-7">
         <label for="nombre">Nombre</label>
         <input type="text" value="<?= $nombre ?>" name="nombre" class="w-2/3 border-2 rounded-lg border-gray-300">
         <label for="apellido">Apellido</label>
-        <input type="text" name="apellido" class="w-2/3 border-2 rounded-lg border-gray-300" value="<?= $apellido ?>">>
+        <input type="text" name="apellido" class="w-2/3 border-2 rounded-lg border-gray-300" value="<?= $apellido ?>">
         <label for="correo">Correo electrónico</label>
         <input type="text" name="correo" class="w-2/3 border-2 rounded-lg border-gray-300">
         <select name="paises" id="1" class="mt-8 w-2/3 border-2 rounded-lg border-gray-300">
@@ -50,7 +53,7 @@
         </div>
 
         <div>
-          <input type="checkbox" id="vs" name="herramientas" value="vs">
+          <input type="checkbox" id="vs" name="herramientas" value="vs" class="mt-5">
           <label for="vs">VS Code</label>
         </div>
         <div>
@@ -67,16 +70,11 @@
         </div>
         </div>
 
-        <button type="submit" class="ml-10 mt-5 bg-green-400 px-3 py-1 border-2 cursor-pointer">Enviar</button>
+        <button name="" action="procesar.php" type="submit" class="ml-10 mt-5 bg-green-400 px-3 py-1 border-2 cursor-pointer">Enviar</button>
         
-        <button class="ml-15 mt-5 bg-red-400 px-3 py-1 border-2 cursor-pointer">Limpiar</button>
+        <button name="limpiar" action="" type="submit" class="ml-15 mt-5 bg-red-400 px-3 py-1 border-2 cursor-pointer">Limpiar</button>
 
     </form>
 
-    <?php
-   
-    ?>
-
-    
   </body>
 </html>
