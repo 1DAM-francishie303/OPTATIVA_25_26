@@ -6,13 +6,19 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script><!--ESTO ES PARA IMPORTAR TAILWINDCSS EN REMOTO-->
   </head>
   <body class="w-full h-full bg-gray-200">
-    
-    <form class="border-2 h-150 border-gray-300 shadow-2xl w-100 m-10 rounded-2xl bg-gray-100">
+    <?php
+         session_start();
+        if(isset($_GET['nombre'])){
+            $_SESSION['nombre'] = $_GET['nombre'];
+            $_SESSION['apellido'] = $_GET['apellido'];
+    }
+    ?>
+    <form class="border-2 h-170 border-gray-300 shadow-2xl w-100 m-10 rounded-2xl bg-gray-100" method="POST" action="procesar.php">
       <div class="flex flex-col ml-10 mt-7">
         <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" class="w-2/3 border-2 rounded-lg border-gray-300">
+        <input type="text" value=<?php echo $_SESSION['nombre']?> name="nombre" class="w-2/3 border-2 rounded-lg border-gray-300">
         <label for="apellido">Apellido</label>
-        <input type="text" name="apellido" class="w-2/3 border-2 rounded-lg border-gray-300">
+        <input type="text" name="apellido" class="w-2/3 border-2 rounded-lg border-gray-300" value=<?php echo $_SESSION['apellido']?>>
         <label for="correo">Correo electrónico</label>
         <input type="text" name="correo" class="w-2/3 border-2 rounded-lg border-gray-300">
         <select name="paises" id="1" class="mt-8 w-2/3 border-2 rounded-lg border-gray-300">
@@ -49,16 +55,22 @@
           <input type="checkbox" id="net" name="herramientas" value="net">
           <label for="net">NetBeans</label>
         </div>
-
-        <input type="checkbox" id="blue" name="herramientas" value="blue">
-        <label for="blue">BlueJ</label>
-
-
-
-
+        <div>
+            <input type="checkbox" id="blue" name="herramientas" value="blue">
+            <label for="blue">BlueJ</label>
         </div>
+        </div>
+
+        <button type="submit" class="ml-10 mt-5 bg-green-400 px-3 py-1 border-2 cursor-pointer">Enviar</button>
+        
+        <button class="ml-15 mt-5 bg-red-400 px-3 py-1 border-2 cursor-pointer">Limpiar</button>
+
     </form>
 
+    <?php
+   
+    ?>
 
+    
   </body>
 </html>

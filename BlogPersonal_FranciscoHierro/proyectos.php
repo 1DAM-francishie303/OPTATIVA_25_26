@@ -22,7 +22,7 @@
             foreach($ejercicios as $key => $ejercicio){
                 if($key >= 2){//las dos primeras son solo . y .. (que están en todos los directorios por defecto para referenciar carpeta padre y propia carpeta)
                     echo "<tr class='border-4 border-blue-400'>";
-                    echo "<td class='p-4'><p>$ejercicio <a href='/UD02_ActividadesDeClase/$ejercicio' class='text-blue-500 underline ml-5'> PINCHA AQUÍ </a></p></td>";//EL http://localhost se pone solo
+                    echo "<td class='p-4'><p>$ejercicio <a href='/BLOGPERSONAL_FranciscoHierro/UD02_ActividadesDeClase/$ejercicio' class='text-blue-500 underline ml-5'> PINCHA AQUÍ </a></p></td>";//EL http://localhost se pone solo
                     if($archivo){
                         if(!feof($archivo)){
                             echo "<td>".fgets($archivo)."</td>";
