@@ -17,21 +17,31 @@ function getTableroMarkup ($tablero){
     for($i = 0; $i < count($tablero); $i++){
         $tableroMarkup .= '<div class="tile ';
         if ($tablero[$i] === "fuego") {
-            $tableroMarkup .= 'fuego"></div>';
+            $tableroMarkup .= 'fuego">';
         } elseif ($tablero[$i] === "agua") {
-            $tableroMarkup .= 'agua"></div>';
+            $tableroMarkup .= 'agua">';
 
         } elseif ($tablero[$i] === "tierra") {
-            $tableroMarkup .= 'tierra"></div>';
+            $tableroMarkup .= 'tierra">';
 
         } elseif ($tablero[$i] === "hierba") {
-            $tableroMarkup .= 'hierba"></div>';
-
+            $tableroMarkup .= 'hierba">';
         }
-    
+        $tableroMarkup .= getPosPersonaje($i); //Hay que modificar la vista (esta funcion) ya que necesitamos añadir ALGO a la vista, MODIFICAR LA VISTA, lo que se ve
+        $tableroMarkup .= '</div>';
    }
    return $tableroMarkup;
 }
+
+//si obtuvieramos la pos de otra forma, como un fichero o bbdd tendríamos que modificar la funcion en la vista, pero la logica de la vista NO CAMBIA
+function getPosPersonaje($i){
+    if(isset($_GET['row']) && isset($_GET['col'])){
+        if($_GET['row'] * 12 + $_GET['col'] == $i){
+            return getPersonajeMarkup();
+        }
+    }
+    return "";
+} 
 
 //Función lógica de negocio
 function leerArchivoCSV($rutaArchivoCSV) {
@@ -57,13 +67,22 @@ function leerArchivoCSV($rutaArchivoCSV) {
     return $array;
 }
 
+function getPersonajeMarkup(){
+    return '<img src="src/musc.png"/>';
+}
 
+function mostrarMensaje(){
+    if(!isset($_GET['row']) || !isset($_GET['col'])){
+        echo "<h2>INTRODUCE UNA POSICIÓN PARA EL PERSONAJE CORRECTA</h2>";
+    }
+}
 //Lógica de negocio
 $tablero = leerArchivoCSV("data/tablero1.csv");
 
 //Lógica de presentación
 
 // Lógica: leer y generar HTML
+mostrarMensaje();
 $tableroMarkup = getTableroMarkup($tablero);
 
 ?>
@@ -76,6 +95,10 @@ $tableroMarkup = getTableroMarkup($tablero);
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <title>Document</title>
     <style>
+        img{
+            width:60px;
+            height:40px;
+        }
         .contenedorTablero {
             width:600px;
             height:600px;
