@@ -11,14 +11,22 @@ error_reporting(E_ALL);
 $tablero = leerArchivoCSV("data/tablero1.csv");
 $coordenadasPersonaje = getCoordenadasPersonaje();
 $coordenadasNuevas = getPosicionNueva($coordenadasPersonaje);
-//Lógica de presentación
+$coordenadasBocata = getCoordenadasBocata();
+
+if(colisionar($coordenadasPersonaje, $coordenadasBocata)){
+    $coordenadasBocata[0] = rand(0,13);
+    $coordenadasBocata[1] = rand(0,13);
+}
+
 
 // Lógica: leer y generar HTML
 mostrarMensaje($coordenadasPersonaje);
-$botones = getBotonesMarkup($coordenadasNuevas);
-$tableroMarkup = getTableroMarkup($tablero, $coordenadasPersonaje);
-
+$botones = getBotonesMarkup($coordenadasNuevas, $coordenadasBocata);
+$tableroMarkup = getTableroMarkup($tablero, $coordenadasPersonaje, $coordenadasBocata);
 ?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
