@@ -41,10 +41,10 @@ function getPersonajeMarkup(){
 //solo pinta nada más  no calcula ninguna posicion ni nada
 function getBotonesMarkup($coordenadasNuevaPosicion, $coordenadasBocata){
         return '<div>
-        <a href="index.php?row=' . $coordenadasNuevaPosicion[2] . '&col=' . $coordenadasNuevaPosicion[1] . '& bocataRow=' . $coordenadasBocata[0] . '& bocataCol='.$coordenadasBocata[1].'">Arriba</a>
-        <a href="index.php?row=' . $coordenadasNuevaPosicion[3] . '&col=' . $coordenadasNuevaPosicion[1] . '& bocataRow=' . $coordenadasBocata[0] . '& bocataCol='.$coordenadasBocata[1].'">Abajo</a>
-        <a href="index.php?row=' . $coordenadasNuevaPosicion[0] . '&col=' . $coordenadasNuevaPosicion[4] . '& bocataRow=' . $coordenadasBocata[0] . '& bocataCol='.$coordenadasBocata[1].'">Derecha</a>
-        <a href="index.php?row=' . $coordenadasNuevaPosicion[0] . '&col=' . $coordenadasNuevaPosicion[5] . '& bocataRow=' . $coordenadasBocata[0] . '& bocataCol='.$coordenadasBocata[1].'">Izquierda</a>
+        <a href="index.php?row=' . $coordenadasNuevaPosicion[2] . '&col=' . $coordenadasNuevaPosicion[1] . '&bocataRow=' . $coordenadasBocata[0] . '&bocataCol='.$coordenadasBocata[1].'">Arriba</a>
+        <a href="index.php?row=' . $coordenadasNuevaPosicion[3] . '&col=' . $coordenadasNuevaPosicion[1] . '&bocataRow=' . $coordenadasBocata[0] . '&bocataCol='.$coordenadasBocata[1].'">Abajo</a>
+        <a href="index.php?row=' . $coordenadasNuevaPosicion[0] . '&col=' . $coordenadasNuevaPosicion[4] . '&bocataRow=' . $coordenadasBocata[0] . '&bocataCol='.$coordenadasBocata[1].'">Derecha</a>
+        <a href="index.php?row=' . $coordenadasNuevaPosicion[0] . '&col=' . $coordenadasNuevaPosicion[5] . '&bocataRow=' . $coordenadasBocata[0] . '&bocataCol='.$coordenadasBocata[1].'">Izquierda</a>
     </div>';
 
 }
