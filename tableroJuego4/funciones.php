@@ -64,7 +64,7 @@ function getCoordenadasPersonaje(){
 
 function leerArchivoCSV($rutaArchivoCSV) {
     $archivo = fopen($rutaArchivoCSV, "r");
-    $array = array();
+    $nuevoArray = array();
 
     if($archivo){
 
@@ -80,9 +80,9 @@ function leerArchivoCSV($rutaArchivoCSV) {
         echo "no se puedo abrir el fichero";
     }
     foreach($array as $elemento){
-            $array[] = trim($elemento); //esto elimina los saltos de linea /n y demás
+            $nuevoArray[] = trim($elemento); //esto elimina los saltos de linea /n y demás
     }
-    return $array;
+    return $nuevoArray;
 }
 
 function getCoordenadasBocata(){

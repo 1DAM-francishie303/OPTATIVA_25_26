@@ -14,8 +14,8 @@ $coordenadasNuevas = getPosicionNueva($coordenadasPersonaje);
 $coordenadasBocata = getCoordenadasBocata();
 
 if(colisionar($coordenadasPersonaje, $coordenadasBocata)){
-    $coordenadasBocata[0] = rand(0,13);
-    $coordenadasBocata[1] = rand(0,13);
+    $coordenadasBocata[0] = rand(0,11);
+    $coordenadasBocata[1] = rand(0,11);
 }
 
 
@@ -23,7 +23,10 @@ if(colisionar($coordenadasPersonaje, $coordenadasBocata)){
 mostrarMensaje($coordenadasPersonaje);
 $botones = getBotonesMarkup($coordenadasNuevas, $coordenadasBocata);
 $tableroMarkup = getTableroMarkup($tablero, $coordenadasPersonaje, $coordenadasBocata);
+dump($coordenadasPersonaje);
+dump($coordenadasBocata);
 ?>
+
 
 
 
