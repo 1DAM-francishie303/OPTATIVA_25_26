@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nuevaTarea'])) {
                     <div class="card border-danger mb-3">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <span>Entrega: <?= $tarea['fecha_entrega']; ?></span>
-                            <form action="" method="post">
+                            <form action="edit_tarea.php" method="post">
                                 <input type="hidden" name="tarea_id" value="<?= $tarea['id']; ?>">
                                 <button type="submit" class="btn" name="btn_modificar">
                                     <svg
