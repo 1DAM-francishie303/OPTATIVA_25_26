@@ -7,7 +7,7 @@ require './includes/header.php';
 $tareas_doing = [];
 $tareas_toDo = [];
 $tareas_done = [];
-$resultado_tareas = getTareas($db);
+$resultado_tareas = getTareas($db, $_SESSION['id_user']);
 
 foreach($resultado_tareas as $tarea){
 
