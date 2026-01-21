@@ -54,7 +54,7 @@ if (isset($_POST["registro"])) {
         
         $check_registro = guardarNuevoUsuario($nombre, $email, $password, $db);       
         if ($check_registro){
-            header("login.php");
+            header("Location: login.php");
         }
         
     } else {

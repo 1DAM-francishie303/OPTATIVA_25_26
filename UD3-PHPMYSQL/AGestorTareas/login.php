@@ -14,19 +14,20 @@ require './includes/data.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["logout"])&& isset($_POST["username"])) {
 
     $array_usuarios = getUsers($db);
-    //session_start();
 
+    //echo print_r($array_usuarios, true);
     $username = $_POST["username"];
     $password = $_POST["password"];
 
     $notFound = false;
     foreach ($array_usuarios as $user) {
+        
         // Verificar credenciales
         if ($username == $user['email'] && password_verify($password, $user['contraseña'])) {
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
             $_SESSION['id_user'] = $user['id'];
-
+           
             // Redirigir a la página de alumnos matriculados
             header("Location: index.php");
             exit();
