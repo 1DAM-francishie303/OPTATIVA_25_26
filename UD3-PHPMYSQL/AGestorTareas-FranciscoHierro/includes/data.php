@@ -107,12 +107,12 @@ function guardarCambiosTarea($db, $id_tarea, $titulo,  $descripcion,  $fecha_ent
 
 
 function eliminarTarea($db, $id_tarea){
-    $sql = "DELETE FROM tareas WHERE $id=".$id_tarea.";";
+    $sql = "DELETE FROM tareas WHERE id=".$id_tarea.";";
     
     if(mysqli_query($db, $sql)){
-        echo "Tarea actualizada correctamente";
+        echo "Tarea eliminada correctamente";
     } else {
-        echo "Error al actualizar la tarea: " . mysqli_error($db);
+        echo "Error al eliminar la tarea: " . mysqli_error($db);
     }
 }
 
