@@ -3,8 +3,6 @@ require './includes/conexion.php';
 require './includes/data.php';
 require './includes/header.php';
 
-session_start();
-
 $tareas_doing = [];
 $tareas_toDo = [];
 $tareas_done = [];
