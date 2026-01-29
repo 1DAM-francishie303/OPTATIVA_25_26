@@ -53,6 +53,22 @@ function getInfoLibros($db){
     return $resultado;
 }
 
+function filtrarLibrosPorCategoria($db, $nombre){
 
+    $sql = "SELECT * from libros JOIN categorias on libros.id_categoria = categorias.id_categoria WHERE nombre='".$nombre."';";
+    
+    $librosCategoria = mysqli_query($db, $sql);
+
+    $resultado = array();
+
+    if(mysqli_num_rows($librosCategoria) > 0){
+        while($fila = mysqli_fetch_assoc($librosCategoria)){
+            array_push($resultado, $fila);
+        }
+    }
+
+    return $resultado;
+
+}
 
 ?>

@@ -8,13 +8,12 @@ session_start();
 
 $librosInfo = getInfoLibros($db);
 
+$categorias = getCategorias($db);
+
 //imprimir arrays:
 //var_dump($libros);
 //imprimir variables
 //echo $variable;
-
-
-
 
 //Aqui pasa una cosa: para sacar el nombre de la categoria de cada libro podriamos haber hecho en data.php una funcion que hiciera un JOIN que uniera cada libro con su categoria por su id 
 // y hacer una array con el resultado para usarlo aqui. O se puede hacer de esta forma que se me ha ocurrido con arrays. PERO HAY QUE TENER EN CUENTA UNA COSA. EN EL FOREACH LA VARIABLES QUE 
@@ -34,7 +33,14 @@ foreach($libros as $libro){
 */
 
 
+if(isset($_POST['catSeleccionada'])) {
 
+    $librosInfo = filtrarLibrosPorCategoria($db, $_POST['categoria']);//ES EL ID DEL SELECT
+}
+if(isset($_POST['limpiar'])) {
+
+    $librosInfo = getInfoLibros($db);
+}
 
 
 ?>
@@ -47,8 +53,20 @@ foreach($libros as $libro){
         </div>
 
         <!--FILTRO POR CATEGORÍA-->
-        <form class="col-8">
-
+        <!--RECUERDA PONER LAS COMILLAS EN LOS VALUE='' AUNQUE SEA PHP Y COSAS ASI -->
+        <form class="d-flex flex-row" method="post" action="">
+            <select class="form-select" id="categoria" name="categoria" required>
+              <option value="" disabled selected>Selecciona una categoria</option>  
+              <?php foreach ($categorias as $categoria): ?>
+                <option value='<?= $categoria['nombre']; ?>'><?= $categoria['nombre']; ?></option>
+              <?php endforeach; ?>   
+            </select>
+            <div class=" justify-content-between align-items-center ">
+                <button type="submit" name="catSeleccionada" class="btn bg-success text-white">Filtrar</button>
+            </div>
+            <div class=" justify-content-between align-items-center ">
+                <button type="submit" name="limpiar" class="btn bg-danger text-white">Limpiar</button>
+            </div>
         </form>
     </div>
 
