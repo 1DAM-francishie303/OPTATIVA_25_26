@@ -14,7 +14,6 @@ require './includes/data.php';
 if(isset($_POST['id_libro'])){
     $idLibro = $_POST['id_libro'];
     $libro = getLibro($db, $idLibro);
-    var_dump($libro);
 }else{
     echo "error";
 }
@@ -25,8 +24,18 @@ if(isset($_POST['id_libro'])){
 
     echo "<h2>".$libro[0]['titulo']."</h2>";
     echo "<h4>".$libro[0]['autor']."</h4>";
-    echo "<label for='fecha'>Selecciona una fecha:</label>
-    <input type='date' id='fecha' name='fecha'>";
+    echo "<img src='./img/".$libro[0]['imagen']."' class='img-thumbnail w-50'>";
     ?>
+    <form action="index.php" method='POST'>
+        <label for='fecha'>Selecciona una fecha:</label>
+        <!--SI NO SE SELECCIONA FECHA ENTONCES SE ENVIA COMO "" PERO NUNCA NULL-->
+        <input type='date' id='fecha' name='fecha'>
+        <!--LE TENGO QUE MANDAR EL ID LIBRO SIEMPRE QUE RESERVE PAR PODER HACER LA OPERACION CREAR RESERVA-->
+        <input type="hidden" name="id_libro_reservar" value="<?= $libro[0]['id_libro']; ?>">
+        <button type="submit" class="btn btn-primary w-30">Reservar ahora</button>
+    </form>
+    <form action="index.php">
+        <button type="submit" class="btn btn-primary w-30">Cancelar</button>
+    </form>
 </body>
 </html>

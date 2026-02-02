@@ -21,15 +21,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["logout"]) && isset($_
     //echo print_r($array_usuarios, true);
     $username = $_POST["username"];
     $password = $_POST["password"];
-
+    
     $notFound = false;
     foreach ($array_usuarios as $user) {
         
         // Verificar credenciales
         if($user['nombre_usuario'] == $username && password_verify($password, $user['password'])){
             $notFound = true;
-            $_SESSION['username'] = $username;
+            $_SESSION['username'] = $username; 
             $_SESSION['password'] = $password;
+            $usuario = getUsuarioPorNombre($db, $username);
+            $_SESSION['id_usuario'] = $usuario[0]['id_usuario'];
             header("Location: index.php"); //el header se usa cuando tienes que enviar el form a la propia pagina pero auna si debes llevar al usaurio a otra pagina
             exit();
             break;

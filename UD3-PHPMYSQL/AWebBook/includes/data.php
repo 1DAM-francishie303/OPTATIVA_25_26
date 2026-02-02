@@ -41,7 +41,7 @@ function getInfoLibros($db){
     //AQUI PASA ALGO IMPORTANTE: COMO RESERVAS Y LIBROS TIENEN UNA COLUMA DE ID_LIBRO IGUAL, AL JUNTAR LAS TABLAS CON EL LEFT JOIN EL ID_LIBRO DE RESERVA SOBREESCRIBE AL ID_LIBRO DE LIBROS ENTONCES LOS QUE NO TIENEN RESERVA SU ID_LIBRO SERÁ NULL
     //LO CUAL DA ERROR AL INTENTAR HACER POR EJEMPLO GETLIBRO($DB, $ID_LIBRO)  
     //SOBREESCRIBE SIEMPRE LA TABLA QUE SE LEE SEGUNDA (EN ESTE CASO RESERVAS SI HUBIERAMOS HECHO RIGHT JOIN SERIA LIBROS QUIEN SOBREESCRIBE)
-    $sql = "SELECT libros.id_libro, libros.imagen, libros.titulo, libros.autor, libros.id_categoria, reservas.id_reserva from libros JOIN categorias on libros.id_categoria = categorias.id_categoria LEFT JOIN reservas ON libros.id_libro = reservas.id_libro; ";
+    $sql = "SELECT libros.id_libro, libros.imagen, libros.titulo, libros.autor, libros.id_categoria, categorias.nombre, reservas.id_reserva from libros JOIN categorias on libros.id_categoria = categorias.id_categoria LEFT JOIN reservas ON libros.id_libro = reservas.id_libro; ";
 
     $librosConInfo = mysqli_query($db, $sql);
 
@@ -102,6 +102,59 @@ function getLibro($db, $id_libro){
 
     if(mysqli_num_rows($libro) > 0){
         while($fila = mysqli_fetch_assoc($libro)){
+            array_push($resultado, $fila);
+        }
+    }
+
+    return $resultado;
+}
+
+function crearReserva($db, $id_libro, $id_usuario, $fecha_reserva){
+
+    
+    $sql = "INSERT INTO RESERVAS (id_usuario, id_libro, fecha_reserva) VALUES (".$id_usuario.", ".$id_libro.", '".$fecha_reserva."');";
+    
+    if(!mysqli_query($db, $sql)){
+        echo "Error en la reserva";
+    } 
+}
+
+//SI LE VAMOS A INSERTAR MENOS COLUMNAS DE LAS QUE TIENE PORQUE POR EJEMPLO HAY AUTOINCREMENT O DEFAULT DEBEMOS INDICARLA EN EL INSERT
+function crearReservaSinFecha($db, $id_libro, $id_usuario){
+
+    $sql = "INSERT INTO RESERVAS (id_usuario, id_libro) VALUES (".$id_usuario.", ".$id_libro.");";
+
+    if(!mysqli_query($db, $sql)){
+        echo "Error en la reserva";
+    } 
+}
+
+function getUsuarioPorNombre($db, $username){
+    $sql = "SELECT * FROM USUARIOS WHERE NOMBRE_USUARIO = '".$username."';";
+
+    $usuario = mysqli_query($db, $sql);
+
+    $resultado = array();
+
+    if(mysqli_num_rows($usuario) > 0){
+        while($fila = mysqli_fetch_assoc($usuario)){
+            array_push($resultado, $fila);
+        }
+    }
+
+    return $resultado;
+}
+
+function getReservasUsuario($db, $id_usuario){
+
+    $sql = "SELECT * FROM reservas JOIN LIBROS ON reservas.id_libro = libros.id_libro WHERE reservas.id_usuario = ". $id_usuario .";";
+   
+    $reservas = mysqli_query($db, $sql);
+
+    $resultado = array();
+
+    if(mysqli_num_rows($reservas) > 0){
+        while($fila = mysqli_fetch_assoc($reservas)){
             array_push($resultado, $fila);
         }
     }

@@ -40,13 +40,29 @@ if(isset($_POST['limpiar'])) {
 
     $librosInfo = getInfoLibros($db);
 }
+if(isset($_POST['fecha']) && $_POST['fecha'] != "" && isset($_POST['id_libro_reservar'])){
+    $fecha_reserva = $_POST['fecha'] . " 00:00:00"; 
+    crearReserva($db, $_POST['id_libro_reservar'], $_SESSION['id_usuario'], $fecha_reserva );
+    //ACTUALIZAMOS LIBROSINFO (YA QUE SE EJECUTA LO PRIMERO EN LA PAGINA LO ACTUALIZAMOS OTRA VEZ)
+    $librosInfo = getInfoLibros($db);
 
+}
+if(isset($_POST['fecha']) && $_POST['fecha'] == "" && isset($_POST['id_libro_reservar'])){
+    crearReservaSinFecha($db, $_POST['id_libro_reservar'], $_SESSION['id_usuario']);
+    //ACTUALIZAMOS LIBROSINFO (YA QUE SE EJECUTA LO PRIMERO EN LA PAGINA LO ACTUALIZAMOS OTRA VEZ)
+    $librosInfo = getInfoLibros($db);
+
+}
 
 ?>
 <div class="container">
     <div class="row m-4 justify-content-between">
         <!-- Botón para ver reservas si está logueado -->
-
+         <?php if(isset($_SESSION['username']))
+        echo "<button type='button' class='btn btn-info text-white' data-bs-toggle='modal' data-bs-target='#reservasModal'>
+            Mis reservas
+        </button>"
+        ?>
         <div class="col-4 mb-4">
 
         </div>
@@ -70,7 +86,8 @@ if(isset($_POST['limpiar'])) {
     </div>
 
     <div class="row">
-        <?php foreach ($librosInfo as $libro): ?>
+        <?php foreach ($librosInfo as $libro):?>
+            
             <div class="col-md-4 d-flex align-items-stretch pb-1">
                 <div class="card shadow">
                     <img src="./img/<?= $libro['imagen']; ?>" class="img-thumbnail w-50" alt="">
@@ -85,6 +102,7 @@ if(isset($_POST['limpiar'])) {
                                 <?php
                                 if(isset($libro['id_reserva'])){
                                     echo "<button disabled class='btn text-light bg-secondary w-100'>No disponible</button>";
+                                    
                                 }else{
                                     if(isset($_SESSION['username'])){
                                         echo "<form action='reserva.php' method='POST'>";   
@@ -99,6 +117,9 @@ if(isset($_POST['limpiar'])) {
                                         echo "</form>";
                                     }
                                 }
+                               
+
+                                
                                 ?>
                             
                         </div>
@@ -123,6 +144,34 @@ if(isset($_POST['limpiar'])) {
             <div class="modal-body">
                 <!-- Aquí se pueden listar las reservas del usuario -->
                 <p>Aquí se mostrarán las reservas del usuario logueado.</p>
+                <?php 
+                    $reservasUsuario = getReservasUsuario($db, $_SESSION['id_usuario'])
+                    
+                ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Título
+                            </th>
+                            <th>
+                                Fecha de reserva
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                <?php foreach ($reservasUsuario as $reserva):?>
+                    <tr>
+                        <td>
+                            <p><?= $reserva['titulo']; ?><p>
+                        </td>
+                        <td>
+                            <p><?= $reserva['fecha_reserva']; ?><p>
+                        </td>
+                    </tr>
+                <?php endforeach; ?> 
+                </tbody>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
