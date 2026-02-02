@@ -28,7 +28,7 @@ if(isset($_POST['id_libro'])){
     ?>
     <form action="index.php" method='POST'>
         <label for='fecha'>Selecciona una fecha:</label>
-        <!--SI NO SE SELECCIONA FECHA ENTONCES SE ENVIA COMO "" PERO NUNCA NULL-->
+        <!--SI NO SE SELECCIONA FECHA ENTONCES SE ENVIA COMO ""-->
         <input type='date' id='fecha' name='fecha'>
         <!--LE TENGO QUE MANDAR EL ID LIBRO SIEMPRE QUE RESERVE PAR PODER HACER LA OPERACION CREAR RESERVA-->
         <input type="hidden" name="id_libro_reservar" value="<?= $libro[0]['id_libro']; ?>">
