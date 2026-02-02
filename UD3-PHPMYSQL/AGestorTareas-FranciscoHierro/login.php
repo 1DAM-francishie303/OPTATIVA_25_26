@@ -11,7 +11,7 @@
 <?php
 session_start();
 require './includes/data.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["logout"])&& isset($_POST["username"])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["logout"]) && isset($_POST["username"])) {
 
     $array_usuarios = getUsers($db);
 
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["logout"])&& isset($_P
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
             $_SESSION['id_user'] = $user['id'];
-           
+            $notFound = true;
             // Redirigir a la página de alumnos matriculados
             header("Location: index.php");
             exit();

@@ -9,9 +9,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <?php 
-session_start();
+require './includes/header.php';
+ 
+require './includes/data.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"])) {
+
+$array_usuarios = getUsuarios($db);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["logout"]) && isset($_POST["username"])) {
 
     //echo print_r($array_usuarios, true);
     $username = $_POST["username"];
@@ -21,22 +26,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"])) {
     foreach ($array_usuarios as $user) {
         
         // Verificar credenciales
-        
+        if($user['nombre_usuario'] == $username && password_verify($password, $user['password'])){
+            $notFound = true;
+            $_SESSION['username'] = $username;
+            $_SESSION['password'] = $password;
+            header("Location: index.php"); //el header se usa cuando tienes que enviar el form a la propia pagina pero auna si debes llevar al usaurio a otra pagina
+            exit();
+            break;
+        }
+
     }
     if (!$notFound) {
         // Mostrar mensaje de error
         echo "<div class='alert alert-danger mt-4 text-center' role='alert'>Usuario o contraseña incorrectos</div>";
     }
     
-} else  if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["username"])) {
-
-    $username = "";
-    $password = "";
-
-    $_SESSION['username'] = $username;
-    $_SESSION['password'] = $password;
+} else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["logout"])) {
 
     session_destroy();
+    header("Location: index.php"); //el header se usa cuando tienes que enviar el form a la propia pagina pero auna si debes llevar al usaurio a otra pagina
+    exit();
+    
 }
 
 ?>
@@ -48,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"])) {
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card p-4 shadow-sm">
-                    <form action="login.php" method="POST">
+                    <form action="" method="POST">
                         <div class="mb-3">
                             <label for="username" class="form-label">Nombre de Usuario</label>
                             <input type="text" class="form-control" id="username" name="username" placeholder="Introduce tu nombre de usuario" required>
@@ -60,9 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["username"])) {
                         <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
 
                     </form>
-                    <form action="registro.php" method="POST" class="d-flex justify-content-center m-2">
-                        <button type="submit" class="btn btn-warning">Registrarme</button>
-                    </form>
+                    
                 </div>
 
             </div>

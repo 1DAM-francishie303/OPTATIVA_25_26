@@ -19,7 +19,7 @@
 </head>
 
 <?php
-
+session_start();
 
 ?>
 
@@ -27,7 +27,17 @@
     <div class="bg-warning-subtle">
         <form class="d-flex justify-content-end p-2" action="login.php" method="post">
             <input type='hidden' name='logout' value='salir'>
-            <button type="submit" class="btn btn-dark">Iniciar sesión</button>
+            
+            <button type="submit" class="btn btn-dark">
+            <?php if(!isset($_SESSION['username'])){
+                echo "Iniciar sesión";
+            }else{
+                echo "Cerrar sesión";
+            }
+        
+            ?>
+            
+            </button>
         </form>
         <header class="cabecera d-flex align-items-center justify-content-center p-4">
             <img src="./img/logo-biblio.png" class="img-fluid logo me-2" alt="Logo IES">

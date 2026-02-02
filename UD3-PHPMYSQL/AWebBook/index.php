@@ -4,7 +4,6 @@ require './includes/data.php';
 
 require './includes/header.php';
 
-session_start();
 
 $librosInfo = getInfoLibros($db);
 
@@ -72,7 +71,6 @@ if(isset($_POST['limpiar'])) {
 
     <div class="row">
         <?php foreach ($librosInfo as $libro): ?>
-
             <div class="col-md-4 d-flex align-items-stretch pb-1">
                 <div class="card shadow">
                     <img src="./img/<?= $libro['imagen']; ?>" class="img-thumbnail w-50" alt="">
@@ -90,6 +88,9 @@ if(isset($_POST['limpiar'])) {
                                 }else{
                                     if(isset($_SESSION['username'])){
                                         echo "<form action='reserva.php' method='POST'>";   
+                                        //DENTRO DE UN ECHO NO PODEMOS PONER value="<?= $libro['id_libro'];
+                                        echo "<input type='hidden' name='id_libro' value=" . $libro['id_libro'] . ">";
+
                                         echo "<button type='submit' class='btn btn-primary w-100 bg-gray-500'>Reservar</button>";
                                         echo "</form>";
                                     }else{
