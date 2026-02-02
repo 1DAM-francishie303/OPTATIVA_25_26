@@ -53,15 +53,26 @@ if(isset($_POST['fecha']) && $_POST['fecha'] == "" && isset($_POST['id_libro_res
     $librosInfo = getInfoLibros($db);
 
 }
+if(isset($_POST['eliminar'])){
+    eliminarLibro($db, $_POST['eliminar']);
+    $librosInfo = getInfoLibros($db);
+}
+
 
 ?>
 <div class="container">
     <div class="row m-4 justify-content-between">
         <!-- Botón para ver reservas si está logueado -->
-         <?php if(isset($_SESSION['username']))
-        echo "<button type='button' class='btn btn-info text-white' data-bs-toggle='modal' data-bs-target='#reservasModal'>
-            Mis reservas
-        </button>"
+         <?php if(isset($_SESSION['username']) && $_SESSION['username'] != 'admin'){
+                    echo "<button type='button' class='btn btn-info text-white' data-bs-toggle='modal' data-bs-target='#reservasModal'>
+                    Mis reservas
+                    </button>";
+                }else if(isset($_SESSION['username']) && $_SESSION['username'] == 'admin'){
+                    echo "<button type='button' class='btn btn-info text-white' data-bs-toggle='modal' data-bs-target='#reservasModal'>
+                    Registrar libro
+                    </button>";
+                }
+        
         ?>
         <div class="col-4 mb-4">
 
@@ -87,7 +98,6 @@ if(isset($_POST['fecha']) && $_POST['fecha'] == "" && isset($_POST['id_libro_res
 
     <div class="row">
         <?php foreach ($librosInfo as $libro):?>
-            
             <div class="col-md-4 d-flex align-items-stretch pb-1">
                 <div class="card shadow">
                     <img src="./img/<?= $libro['imagen']; ?>" class="img-thumbnail w-50" alt="">
@@ -98,27 +108,29 @@ if(isset($_POST['fecha']) && $_POST['fecha'] == "" && isset($_POST['id_libro_res
                             <strong>Categoría:</strong> <?= $libro['nombre']; ?>
                         </p>
                         <div class="mt-auto">
-                             
                                 <?php
                                 if(isset($libro['id_reserva'])){
                                     echo "<button disabled class='btn text-light bg-secondary w-100'>No disponible</button>";
                                     
                                 }else{
-                                    if(isset($_SESSION['username'])){
+                                    if(isset($_SESSION['username']) && $_SESSION['username'] != 'admin'){
                                         echo "<form action='reserva.php' method='POST'>";   
                                         //DENTRO DE UN ECHO NO PODEMOS PONER value="<?= $libro['id_libro'];
                                         echo "<input type='hidden' name='id_libro' value=" . $libro['id_libro'] . ">";
 
                                         echo "<button type='submit' class='btn btn-primary w-100 bg-gray-500'>Reservar</button>";
                                         echo "</form>";
+                                    }else  if(isset($_SESSION['username']) && $_SESSION['username'] == 'admin' ){
+                                        echo "<form action='' method='POST'>";
+                                        echo "<input type='hidden' name='eliminar' value=" . $libro['id_libro'] . ">";
+                                        echo "<button type='submit' class='btn btn-primary w-100 bg-gray-500'>Eliminar</button>";
+                                        echo "</form>";
                                     }else{
                                         echo "<form action='login.php' method='POST'>";   
                                         echo "<button type='submit' class='btn btn-primary w-100 bg-gray-500'>Reservar</button>";
                                         echo "</form>";
                                     }
-                                }
-                               
-
+                                }    
                                 
                                 ?>
                             
@@ -142,13 +154,12 @@ if(isset($_POST['fecha']) && $_POST['fecha'] == "" && isset($_POST['id_libro_res
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Aquí se pueden listar las reservas del usuario -->
-                <p>Aquí se mostrarán las reservas del usuario logueado.</p>
-                <?php 
-                    $reservasUsuario = getReservasUsuario($db, $_SESSION['id_usuario'])
-                    
-                ?>
-                <table>
+                <?php
+                if($_SESSION['username'] != 'admin'){
+                    $reservasUsuario = getReservasUsuario($db, $_SESSION['id_usuario']);
+                    //Aquí se pueden listar las reservas del usuario
+                    echo "<p>Aquí se mostrarán las reservas del usuario logueado.</p>";
+                    echo "<table>
                     <thead>
                         <tr>
                             <th>
@@ -159,19 +170,35 @@ if(isset($_POST['fecha']) && $_POST['fecha'] == "" && isset($_POST['id_libro_res
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
-                <?php foreach ($reservasUsuario as $reserva):?>
-                    <tr>
+                    <tbody>";
+                    foreach ($reservasUsuario as $reserva):
+                    echo "<tr>
                         <td>
-                            <p><?= $reserva['titulo']; ?><p>
+                            <p>".$reserva['titulo'] ."<p>
                         </td>
                         <td>
-                            <p><?= $reserva['fecha_reserva']; ?><p>
+                            <p>".$reserva['fecha_reserva']."<p>
                         </td>
-                    </tr>
-                <?php endforeach; ?> 
-                </tbody>
-                </table>
+                    </tr>";
+                    endforeach; 
+                echo "</tbody>
+                </table>";
+
+                }else if($_SESSION['username'] == 'admin'){
+                     echo "<p>Registra un libro.</p>";
+                     echo "<form>";
+                     echo "<label for='tituloLibro' class='form-label'>Titulo</label>
+                    <input type='text' class='form-control' id='titlo' name='tituloLibro' placeholder='Introduce el titulo del libro' required>
+                    <label for='autorLibro' class='form-label'>Autor</label>
+                    <input type='text' class='form-control' id='autor' name='autorLibro' placeholder='Introduce el autor del libro' required>
+                    <input type='text' class='form-control' id='titlo' name='tituloLibro' placeholder='Introduce el titulo del libro' required>
+                    <label for='autorLibro' class='form-label'>Autor</label>";
+                     echo "</form>";
+
+                }
+                ?>
+                
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

@@ -38,6 +38,8 @@ function getCategorias($db){
 function getInfoLibros($db){
 
     //para que salgan tambien los libros que no tienen reserva hacemos LEFT JOIN 8la tabla libros está a la izq.)
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //AQUI PASA ALGO IMPORTANTE: COMO RESERVAS Y LIBROS TIENEN UNA COLUMA DE ID_LIBRO IGUAL, AL JUNTAR LAS TABLAS CON EL LEFT JOIN EL ID_LIBRO DE RESERVA SOBREESCRIBE AL ID_LIBRO DE LIBROS ENTONCES LOS QUE NO TIENEN RESERVA SU ID_LIBRO SERÁ NULL
     //LO CUAL DA ERROR AL INTENTAR HACER POR EJEMPLO GETLIBRO($DB, $ID_LIBRO)  
     //SOBREESCRIBE SIEMPRE LA TABLA QUE SE LEE SEGUNDA (EN ESTE CASO RESERVAS SI HUBIERAMOS HECHO RIGHT JOIN SERIA LIBROS QUIEN SOBREESCRIBE)
@@ -160,5 +162,14 @@ function getReservasUsuario($db, $id_usuario){
     }
 
     return $resultado;
+}
+
+function eliminarLibro($db, $id_libro){
+
+    $sql = "DELETE FROM LIBROS WHERE id_libro=".$id_libro.";";
+
+    if(!mysqli_query($db, $sql)){
+        echo "Error en la eliminacion";
+    } 
 }
 ?>
