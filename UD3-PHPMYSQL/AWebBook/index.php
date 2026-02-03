@@ -58,6 +58,11 @@ if(isset($_POST['eliminar'])){
     $librosInfo = getInfoLibros($db);
 }
 
+if(isset($_POST['btn_registrar_libro'])){ //Se puede hacer el isset al boton del formulario solo para no tener que hacerlo a todos los campos (aun asi hemos puesto required)
+    crearLibro($db, $_POST['tituloLibro'], $_POST['autorLibro'], $_POST['categoriaLibro'], $_POST['imagenLibro']);
+    $librosInfo = getInfoLibros($db);
+
+} 
 
 ?>
 <div class="container">
@@ -127,7 +132,7 @@ if(isset($_POST['eliminar'])){
                                         echo "</form>";
                                     }else{
                                         echo "<form action='login.php' method='POST'>";   
-                                        echo "<button type='submit' class='btn btn-primary w-100 bg-gray-500'>Reservar</button>";
+                                        echo "<button type='submit' name='btnNuevoLibro' class='btn btn-primary w-100 bg-gray-500'>Reservar</button>";
                                         echo "</form>";
                                     }
                                 }    
@@ -186,15 +191,24 @@ if(isset($_POST['eliminar'])){
 
                 }else if($_SESSION['username'] == 'admin'){
                      echo "<p>Registra un libro.</p>";
-                     echo "<form>";
-                     echo "<label for='tituloLibro' class='form-label'>Titulo</label>
-                    <input type='text' class='form-control' id='titlo' name='tituloLibro' placeholder='Introduce el titulo del libro' required>
-                    <label for='autorLibro' class='form-label'>Autor</label>
-                    <input type='text' class='form-control' id='autor' name='autorLibro' placeholder='Introduce el autor del libro' required>
-                    <input type='text' class='form-control' id='titlo' name='tituloLibro' placeholder='Introduce el titulo del libro' required>
-                    <label for='autorLibro' class='form-label'>Autor</label>";
-                     echo "</form>";
+                     echo "<form action='' method='POST'> ";
+                        echo "<label for='tituloLibro' class='form-label'>Titulo</label>
+                        <input type='text' class='form-control' id='titlo' name='tituloLibro' placeholder='Introduce el titulo del libro' required>
+                        <label for='autorLibro' class='form-label'>Autor</label>
+                        <input type='text' class='form-control' id='autor' name='autorLibro' placeholder='Introduce el autor del libro' required>
+                        <label for='imagenLibro' class='form-label'>Imagen de la portada del libro</label>
+                        <input type='text' class='form-control' id='imagenLibro' name='imagenLibro' placeholder='Introduce el enlace de la portada del libro' required>
+                        <label for='categoriaLibro' class='form-label'>Categoria</label>
+                        <select class='form-select' id='categoriaLibro' name='categoriaLibro' required>
+                            <option value='' disabled selected>Selecciona una categoria</option>";  
+                            foreach ($categorias as $categoria):
+                            echo "<option value='". $categoria['nombre'] ." '>'". $categoria['nombre']. "' ></option>";
+                            endforeach;   
+                        echo "</select>";
+                        echo "<button type='submit' name='btn_registrar_libro' class='btn btn-primary w-100 bg-gray-500'>Registrar</button>";
 
+                     echo "</form>";
+                    
                 }
                 ?>
                 

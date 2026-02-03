@@ -172,4 +172,34 @@ function eliminarLibro($db, $id_libro){
         echo "Error en la eliminacion";
     } 
 }
+
+function crearLibro($db, $tituloLibro, $autorLibro, $categoriaLibro, $imagenLibro){
+
+    $categoria = getCategoriaPorNombre($db, $categoriaLibro);
+    $id = $categoria[0]['id_categoria'];
+
+    $sql = "INSERT INTO LIBROS (titulo, autor, id_categoria, imagen) VALUES ('".$tituloLibro."', '".$autorLibro."', ".$id.", '".$imagenLibro."')";
+
+     if(!mysqli_query($db, $sql)){
+        echo "Error en la inserción";
+    } 
+}
+
+function getCategoriaPorNombre($db, $nombre){
+
+    $sql = "SELECT * FROM CATEGORIAS WHERE nombre ='".$nombre."';";
+    
+    $categoria = mysqli_query($db, $sql);
+
+    $resultado = array();
+
+    if(mysqli_num_rows($categoria) > 0){
+        while($fila = mysqli_fetch_assoc($categoria)){
+            array_push($resultado, $fila);
+        }
+    }
+
+    return $resultado;
+
+}
 ?>
