@@ -70,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !isset($_POST["logout"]) && isset($_
                             <input type="password" class="form-control" id="password" name="password" placeholder="Introduce tu contraseña" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-
                     </form>
                     
                 </div>
